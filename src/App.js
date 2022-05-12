@@ -1,25 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react"
+import {BrowserRouter as Router,Route,Routes } from 'react-router-dom';
+import AllMarques from "./components/marquecompnents/AllMarques"
+import Appbar from './components/Appbar';
+import Marque from './components/ModeleComponents/ModelesOfMarque';
+import AllLot from './components/LotComponenets/AllLot';
+import VehiculesofLot from './components/VehiculeComponents/VehiculesOfLot'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>   
+<Appbar></Appbar>     
+ <Router>
+   <Routes>
+     <Route exact path="/allmarques"  element={<AllMarques/>} />
+     <Route exact path="/marque"  element={<Marque/>} />
+     <Route exact path="/AllLot"  element={<AllLot/>} />
+     <Route exact path="/VehiculesOfLot"  element={<VehiculesofLot/>} />
+   </Routes>
+ </Router>
+ </>
+
   );
 }
 
 export default App;
+

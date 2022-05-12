@@ -1,0 +1,43 @@
+h2 
+{ color: #007bff;
+     font-size: 60px; 
+     font-family: 'Signika', sans-serif;
+      padding-bottom: 10px; 
+}
+.BtnAjout
+{   top: 220px;
+    position: absolute;
+    right: 80px;
+    
+}
+h6
+{
+    color: #007bff;
+}
+.btnRetourMarque
+{
+    top: 220px;
+    position: absolute;
+    left : 50px;
+}
+.TableModele
+{
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+
+}
+.SearchForm{
+    margin-left: 50%;
+    top: 220px;
+    position: absolute;
+}
+.TableVehicule
+{
+    width: 75%;
+    margin-left: 12%;
+}
+.row
+{
+    width : 100% ; 
+}
