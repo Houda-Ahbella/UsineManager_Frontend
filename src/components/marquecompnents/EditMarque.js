@@ -8,7 +8,8 @@ const EditForm = ({theMarque}) =>{
     const handlerClick=(e)=>
     {
         e.preventDefault()
-        const marque={designation,url}
+        const num_marque= theMarque.num_marque;
+        const marque={num_marque,designation,url}
         console.log(marque)
         fetch("http://localhost:9090/Usine/updateemarque",{
         method:"PUT",
@@ -19,12 +20,8 @@ const EditForm = ({theMarque}) =>{
             window.location.assign('http://localhost:3000/allmarques');
         }
         )
-        
        
     }
-
-    
-    
 
   
      return (
@@ -34,14 +31,14 @@ const EditForm = ({theMarque}) =>{
           <label >Numéro de chassis:</label>
           <input type="text" class="form-control" id="designation" placeholder="Designation" name="Designation"
           value={designation}
-          onChange={(e)=>setDesignation(e.target.value)} readOnly
+          onChange={(e)=>setDesignation(e.target.value)} 
           ></input>
           <label >URL vers l'image:</label>
           <input type="text" class="form-control" id="url" placeholder="url" name="url"
           value={url}
           onChange={(e)=>setUrl(e.target.value)}
           ></input>
-          
+           
         </div>
         <Button variant="primary" onClick={handlerClick}>Enregistrer</Button>
       </form>

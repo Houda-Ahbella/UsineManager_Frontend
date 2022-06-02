@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
+import ExcelToJson from '../Excel'
 
 export default function AjoutLot() {
     
     const [chemin,setChemin]=React.useState('')
+    const[extension,setextension]=React.useState('')
    const handleSubmit=(event)=> {
+       setextension('.xlsx');
         event.preventDefault();
-        const ExcelReader={chemin}
+        const ExcelReader={chemin,extension}
         console.log(ExcelReader)
         fetch("http://localhost:9090/Usine/addCompleteLot",{
         method:"POST",
@@ -15,7 +18,7 @@ export default function AjoutLot() {
         }).then(()=>{
             console.log(" new lot added")
             
-            //window.location.assign('http://localhost:3000/AllLot');
+           // window.location.assign('/AllLot');
         })
         
       }
@@ -25,11 +28,8 @@ export default function AjoutLot() {
     
 <div class="container">
   <form onSubmit={handleSubmit}>
-                    Chemin du fichier :
-                    <input type="text" value={chemin}
-                    onChange={(e)=>setChemin(e.target.value)} class="form-control"></input>
-                    <br />
-                    <Button variant= "primary" type="submit">Envoyer</Button>
+                    <ExcelToJson></ExcelToJson>
+                    
     </form>
 </div>
  

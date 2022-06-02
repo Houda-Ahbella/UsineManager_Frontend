@@ -6,13 +6,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Box from "@material-ui/core/Box"
-import  {Button } from 'react-bootstrap';
+import CardStatistique from './Statistiques/StatistiqueLot'
 import MenuOption from './MenuOption';
-
+import './e.css'
+import SuiviProblemes from './QualiteProblemes/SuiviProblemes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 2,   
+    flexGrow: 2,  
+
     
   },
   menuButton: {
@@ -29,26 +31,24 @@ function Appbar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root  + " Appbar"} >
-    <Box sx={{ flexGrow: 1 } } >
-      <AppBar position="static" style={{ background: 'rgb(220 220 220 / 15%)' } } > 
-        <Toolbar >
-        &nbsp;&nbsp;&nbsp;
-          <IconButton size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}>
-              <img src='https://upload.wikimedia.org/wikipedia/commons/5/55/Logo_Auto_Hall.jpg' alt="not found " height="40" width="70"></img>
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Usine Auto Hall 
-          </Typography>
-          <MenuOption></MenuOption>
-        </Toolbar>
-      </AppBar>
-      </Box>
+    <>
+  <header class="navbar navbar-light  sticky-top  flex-md-nowrap p-0 shadow" style={{ background: 'rgb(158 158 158)' }} >
+  <span >
+   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Logo_Auto_Hall.jpg" width="80" height="40" class="me-3" alt="Bootstrap"/>
+  <label style={{ color: '#ffff' , fontSize:"20px"}} > Usine Auto Hall </label>
+  </span>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+ 
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#"><MenuOption></MenuOption></a>
     </div>
+  </div>
+</header>
+
+   </>
   );
 }
 export default Appbar;

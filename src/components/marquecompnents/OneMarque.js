@@ -7,9 +7,6 @@ import '../e.css'
 
 
 const OneMarque = ({marque}) => {
-
-    
-
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -22,43 +19,44 @@ const OneMarque = ({marque}) => {
 
     return (
         <>
-  <Card>
-    <Card.Img variant="top" src={marque.url} height="200" />
+  <Card style={{ borderRadius : 30 , borderWidth: 1 , borderColor : "black" }}>
+    
     <Card.Body>
-      <Card.Title>{marque.designation}</Card.Title>
-    </Card.Body>
-    <Card.Footer style={{ background: 'rgb(224 224 224 / 57%)' }}>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <Card.Title>
+        <img  src={marque.url} height="200" width="200" ></img> 
+        <br></br>
+          <label class="Number">{marque.designation}</label>
+      <br></br><br></br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <OverlayTrigger overlay={
                         <Tooltip id={`tooltip-top`}>
                             Modifier
                         </Tooltip>
                     }>
-                    < Button variant="outline-primary" onClick={handleShow} data-toggle="modal"><i class="bi bi-pen"></i></Button>
+                    < Button variant="outline-dark" onClick={handleShow} data-toggle="modal"><i class="bi bi-pen"></i></Button>
     </OverlayTrigger>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
    
     <OverlayTrigger overlay={
                         <Tooltip id={`tooltip-top`}>
                             Modèles
                         </Tooltip>
                     }>
-                   <Button onClick={()=> {  navigate('/marque?m='+marque.designation)}} 
-                        variant="outline-primary"><i class="bi bi-journal-plus"></i></Button>
+                   <Button onClick={()=> {  navigate('/marque?m='+marque.num_marque+'&des='+marque.designation)}} 
+                        variant="outline-dark"><i class="bi bi-journal-plus"></i></Button>
              </OverlayTrigger>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     
              <OverlayTrigger overlay={
                         <Tooltip id={`tooltip-top`}>
                             Etapes
                         </Tooltip>
                     }>
-                   <Button 
-                        variant="outline-primary"><i class="bi bi-bar-chart-steps"></i> </Button>
+                   <Button onClick={()=> {  navigate('/etapes?n='+marque.num_marque+'&m='+marque.designation)}}
+                        variant="outline-dark"><i class="bi bi-bar-chart-steps"></i> </Button>
              </OverlayTrigger>
-                               
-    </Card.Footer>
+      </Card.Title>
+    </Card.Body>
   </Card>
 
             <Modal show={show} onHide={handleClose}>

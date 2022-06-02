@@ -5,7 +5,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
+import Avatar from '@material-ui/core/Avatar'
+import { green } from '@material-ui/core/colors';
+import './e.css'
 const StyledMenu = withStyles({
   
 })(props => (
@@ -48,9 +50,9 @@ export default function MenuOption() {
 
   return (
     <div>
-      <Button variant="primary" 
-       onClick={handleClick}><i class="bi bi-person-bounding-box"></i>
-      </Button>
+      <button class="avatar"
+       onClick={handleClick}><i class="bi bi-person"></i>
+      </button>
       <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <StyledMenuItem>
           <ListItemIcon>

@@ -1,4 +1,4 @@
-import { Button ,Modal , OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button ,Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import EditVehicule from "./EditVehicule"
 const OneVehicule = ({theVehicule}) => {
@@ -12,14 +12,35 @@ const OneVehicule = ({theVehicule}) => {
     const handleClose2 = () => setShow2(false);
     const SupprimerVehicule =(e)=>{
         e.preventDefault()
-        fetch("http://localhost:9090/Usine/deletevehicule/"+theVehicule.num_Chassis,{
-            method:"DELETE",
-            headers:{"Content-Type":"application/json"}
-            }).then(()=>{
-                console.log(" vehicule deleted")
-                window.location.assign('http://localhost:3000/VehiculesofLot?lot='+theVehicule.lot.num_lot);
+        if(theVehicule.lot.nombre_vehicules==1)
+        {
+            const confirmBox = window.confirm("Si vous supprimez ce vehicule \n le lot devient vide \n cela implique la supprission de lot "+ theVehicule.lot.num_lot)
+            if(confirmBox==false)
+            {
+               setShow2(false)
+               return;
             }
-            )
+            else
+            {
+                fetch("http://localhost:9090/Usine/deletevehicule/"+theVehicule.num_Chassis,{
+                    method:"DELETE",
+                    headers:{"Content-Type":"application/json"}
+                    }).then(()=>{
+                        console.log(" vehicule deleted")
+                        window.location.assign('/AllLot');
+                    })
+            }
+        }
+        else{
+            fetch("http://localhost:9090/Usine/deletevehicule/"+theVehicule.num_Chassis,{
+                method:"DELETE",
+                headers:{"Content-Type":"application/json"}
+                }).then(()=>{
+                    console.log(" vehicule deleted")
+                    window.location.assign('http://localhost:3000/VehiculesofLot?lot='+theVehicule.lot.num_lot);
+                })
+        
+        }
        
 
     }
@@ -27,28 +48,22 @@ const OneVehicule = ({theVehicule}) => {
         <>
         <td>{theVehicule.ordre}</td>
         <td>{theVehicule.num_Chassis}</td>
-        <td>{theVehicule.num_Engine}</td>
+        <td>{theVehicule.numengine}</td>
         <td>{theVehicule.couleur}</td>
         <td>{theVehicule.modele.designation}</td>
         <td>{theVehicule.modele.marque.designation}</td>
+        
         <td>
         <div >
-                    <OverlayTrigger overlay={
-                                    <Tooltip id={`tooltip-top`}>
-                                        Modifier
-                                    </Tooltip>
-                                }>
-                                <Button variant="outline-primary"  data-toggle="modal"onClick={handleShow}><i class="bi bi-pen"></i></Button>
-                  </OverlayTrigger>&nbsp;
-                  <OverlayTrigger overlay={
-                                    <Tooltip id={`tooltip-top`}>
-                                        Effacer
-                                    </Tooltip>
-                                }>
-                                <Button  variant="outline-danger" data-toggle="modal" onClick={handleShow2}>
-                                    <i class="bi bi-trash3-fill"></i>
-                                </Button>
-                  </OverlayTrigger>	
+                    
+                   <Button variant="outline-primary"  data-toggle="modal"onClick={handleShow}>
+                       <i class="bi bi-pen"></i>
+                    </Button>&nbsp;
+                  
+                    <Button  variant="outline-danger" data-toggle="modal" onClick={handleShow2}>
+                        <i class="bi bi-trash3-fill"></i>
+                    </Button>
+                 
         </div>
        
         </td>

@@ -1,4 +1,4 @@
-import {  Button , DatePicker } from "react-bootstrap"
+import {  Button  } from "react-bootstrap"
 import { useState} from 'react';
 
 
@@ -7,19 +7,16 @@ const EditLot = ({theLot}) =>{
     const [connaissement, setconnaissement] = useState(theLot.connaissement);
     const [date_Entree, setdate_Entree] = useState(theLot.date_Entree);
     const handlerClick=(e)=>
-    {  const nombre_vehicules = theLot.nombre_vehicules ;
-        const num_lot = theLot.num_lot;
-       const modeleLot = theLot.modeleLot;
-    
-        e.preventDefault()
+    {   e.preventDefault()
         
-        console.log(date_Entree)
-        const lot={nombre_vehicules,num_lot,modeleLot,date_Entree,num_bach,connaissement}
-        console.log(lot)
+        
+       theLot.connaissement=connaissement
+       theLot.num_bach = num_bach
+       theLot.date_Entree = date_Entree
         fetch("http://localhost:9090/Usine/updatelot",{
         method:"PUT",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(lot)
+        body:JSON.stringify(theLot)
         }).then(()=>{
             console.log(" lot updated")
             window.location.assign('http://localhost:3000/AllLot');

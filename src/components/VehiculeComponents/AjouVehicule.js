@@ -3,10 +3,11 @@ import React from "react"
 
 const AjoutVehicule = ({theLot}) =>{
     const [num_Chassis,setnum_Chassis]=React.useState('')
-    const [num_Engine, setnum_Engine] = React.useState('')
+    const [numengine, setnum_Engine] = React.useState('')
     const [couleur, setcouleur] = React.useState('')
     const [ordre, setordre] = React.useState('')
-    const [showExisteModal, setshowExisteModal] = React.useState(false);
+   
+    
     const handlerClick=async(e)=>
     {
 
@@ -16,42 +17,48 @@ const AjoutVehicule = ({theLot}) =>{
         const l = await response.json();
         const lot = l[0];
         const modele = lot.modeleLot;
-       
-        const ex = await fetch('http://localhost:9090/Usine/findvehicule/'+ num_Chassis);
-        const existe = await ex.json();
-       
-        const vehicule={lot,modele,num_Chassis,num_Engine,couleur,ordre}
+     if(num_Chassis===''||numengine===''||ordre==='')
+      {
+          alert("certains champs sont nulls !!")
+      }
+      else
+      {
+        const vehicule={lot,modele,num_Chassis,numengine,couleur,ordre}
         console.log(vehicule)
-        if(existe.timestamp)
-        {
          
           
-            fetch("http://localhost:9090/Usine/addvehicule",{
+          const ve = await fetch("http://localhost:9090/Usine/addvehicule",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(vehicule)
-            }).then(()=>{
-                console.log(" vehicule added")
-                window.location.assign('http://localhost:3000/VehiculesofLot?lot='+theLot);
-            }
-            )
-         
-             
+            });
+            const vehiculeres = await ve.json();
+            console.log(vehiculeres)
+             if(vehiculeres.ordre===-1)
+             {
+              alert("Vehicule Num "+ num_Chassis + " déjà existe Modifiez vous informations ! ")
+             }
+             else if(vehiculeres.ordre===-2)
+             {
+              alert("l'ordre "+ ordre + " déjà existe Modifiez vous informations ! ")
+             }
+             else if(vehiculeres.ordre===-3)
+             {
+              alert("Engine "+ numengine + " déjà existe Modifiez vous informations ! ")
+             }
+             else
+             {
+               window.location.assign("/VehiculesofLot?lot="+theLot)
+             }
     
             
-        }
-        else 
-        {
-          setshowExisteModal(true);
-          setTimeout(()=> {
-            setshowExisteModal(false);
-          }, 2000)
-        }
+ 
         
+      }    
       
         
         
-      // 
+      
     }
 
     
@@ -65,12 +72,12 @@ const AjoutVehicule = ({theLot}) =>{
           <input type="text" class="form-control" id="url" placeholder="Num chassis" name="marque"
           value={num_Chassis}   onChange={(e)=>setnum_Chassis(e.target.value)}
           ></input>
-          <input type="text" class="form-control" id="designation" placeholder="Ordre dans le lot" name="Designation"
-          value={ordre}
+          <input type="Number" class="form-control" id="designation" placeholder="Ordre dans le lot" name="Designation"
+          value={ordre} min="1"
           onChange={(e)=>setordre(e.target.value)}
           ></input>
         <input type="text" class="form-control" id="designation" placeholder="Num Engine" name="Designation"
-          value={num_Engine}
+          value={numengine}
           onChange={(e)=>setnum_Engine(e.target.value)}
           ></input>
         <input type="text" class="form-control" id="designation" placeholder="Couleur" name="Designation"
@@ -80,15 +87,7 @@ const AjoutVehicule = ({theLot}) =>{
         </div>
         <Button variant="danger" onClick={handlerClick}>Enregistrer</Button>
       </form>
-                   <Modal show={showExisteModal} >
-                   <Modal.Header closeButton>
-                       <Modal.Title>
-                           Vehicule Num {num_Chassis} déjà existe 
-                           <br></br>
-                           Modifiez vous informations ! 
-                       </Modal.Title>
-                   </Modal.Header>
-               </Modal>
+                   
 </>
 
      )
