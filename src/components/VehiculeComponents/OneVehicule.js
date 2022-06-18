@@ -1,6 +1,7 @@
 import { Button ,Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import EditVehicule from "./EditVehicule"
+import { TableCell ,TableRow } from '@material-ui/core';
 const OneVehicule = ({theVehicule}) => {
 
 
@@ -46,14 +47,17 @@ const OneVehicule = ({theVehicule}) => {
     }
     return (
         <>
-        <td>{theVehicule.ordre}</td>
-        <td>{theVehicule.num_Chassis}</td>
-        <td>{theVehicule.numengine}</td>
-        <td>{theVehicule.couleur}</td>
-        <td>{theVehicule.modele.designation}</td>
-        <td>{theVehicule.modele.marque.designation}</td>
+        <TableRow >
+            
+        </TableRow>
+        <TableCell>{theVehicule.ordre}</TableCell>
+        <TableCell>{theVehicule.num_Chassis}</TableCell>
+        <TableCell>{theVehicule.numengine}</TableCell>
+        <TableCell>{theVehicule.couleur}</TableCell>
+        <TableCell>{theVehicule.modele.designation}</TableCell>
+        <TableCell>{theVehicule.modele.marque.designation}</TableCell>
         
-        <td>
+        <TableCell>
         <div >
                     
                    <Button variant="outline-primary"  data-toggle="modal"onClick={handleShow}>
@@ -66,7 +70,7 @@ const OneVehicule = ({theVehicule}) => {
                  
         </div>
        
-        </td>
+        </TableCell>
         <Modal show={show} onHide={handleClose}>
                 <Modal.Header style={{ background: 'rgb(224 224 224 / 57%)' }} >
                     <Modal.Title>

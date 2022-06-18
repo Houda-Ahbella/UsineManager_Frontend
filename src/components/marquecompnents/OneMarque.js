@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../e.css'
 
 
-const OneMarque = ({marque}) => {
+const OneMarque = ({marque,id}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -42,7 +42,7 @@ const OneMarque = ({marque}) => {
                             Modèles
                         </Tooltip>
                     }>
-                   <Button onClick={()=> {  navigate('/marque?m='+marque.num_marque+'&des='+marque.designation)}} 
+                   <Button onClick={()=> {  navigate('/marque?m='+marque.num_marque+'&des='+marque.designation+'&n='+id)}} 
                         variant="outline-dark"><i class="bi bi-journal-plus"></i></Button>
              </OverlayTrigger>
              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,7 +52,7 @@ const OneMarque = ({marque}) => {
                             Etapes
                         </Tooltip>
                     }>
-                   <Button onClick={()=> {  navigate('/etapes?n='+marque.num_marque+'&m='+marque.designation)}}
+                   <Button onClick={()=> {  navigate('/etapes?n='+marque.num_marque+'&m='+marque.designation+'&id='+id)}}
                         variant="outline-dark"><i class="bi bi-bar-chart-steps"></i> </Button>
              </OverlayTrigger>
       </Card.Title>

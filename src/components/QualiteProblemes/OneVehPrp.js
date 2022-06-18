@@ -11,7 +11,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import OneEtape  from '../Etapes/OnEtapeOfVehicule';
 import Tooltip from '@material-ui/core/Tooltip'
-import { Modal,Button } from 'react-bootstrap';
 import { useState} from 'react';
 import PrbsOfVehicule from './ProblemsOfvehicule';
 
@@ -58,26 +57,7 @@ export default function OneVehPrb({theVehicule}) {
         <TableRow style={{ background: 'rgb(224 224 224 / 57%)' }}>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
             <Collapse in={Open} timeout="auto" unmountOnExit>
-              <Box margin={1}>
-                <Typography variant="h6" gutterBottom component="div">
-                  Les Etapes
-                </Typography>
-                <Table size="small" aria-label="purchases">
-                  <TableHead>
-                    <TableRow >
-                      <TableCell>Nom d'étape</TableCell>
-                      <TableCell>Date Fin</TableCell>
-                      <TableCell>Etat</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                  {theVehicule.steps.map((step) => (
-                    <OneEtape step={step}></OneEtape>     
-                        ))}
-                          
-                  </TableBody>
-                </Table>
-              </Box>
+            <OneEtape  role="0"  all={theVehicule.steps} num={theVehicule.num_Chassis}></OneEtape>  
             </Collapse>
           </TableCell>
         </TableRow>

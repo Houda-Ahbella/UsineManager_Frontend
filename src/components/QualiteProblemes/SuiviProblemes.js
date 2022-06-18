@@ -1,42 +1,66 @@
 import React from 'react';
-import {Button , Modal } from "react-bootstrap"
+import {Dropdown } from "react-bootstrap"
 import TextField  from '@material-ui/core/TextField'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import OneVehPrb from './OneVehPrp'
+
 import CardStatistique from '../Statistiques/StatistiqueLot'
 import '../e.css'
+import Collapse from '@material-ui/core/Collapse';
+import * as XLSX from 'xlsx'
+import MatableSuiPro from "./TableSuivipro"
+import MenuOption from "../MenuOption";
+import RoleNavbar from "../Acceuil/Navbar";
 
-
-
-   
 class SuiviProblemes extends React.Component {
     constructor(props)
     {
       super(props); 
       this.state = {  
         rows: [] ,
-        bloquerows : [] , 
+        all : [] , 
         Recherche : false
         , Lot : Number
+        , OpenStatistique :false
+        , Title : "Statistiques"
+        , theproblems : []
+        , steps : []
+        ,l : {},
+         modele : "", marque : "",
+          utilisateur : {}
       };
       this.RechercheVehicule = this.RechercheVehicule.bind(this);
-      this.statistique = this.statistique.bind(this);
+      this.OpenStatistique=this.OpenStatistique.bind(this);
+      this.GetBloques = this.GetBloques.bind(this);
+      this.Allvehicules = this.Allvehicules.bind(this);
+    }
+ 
+    OpenStatistique()
+    {
+      this.setState({OpenStatistique:!this.state.OpenStatistique});
+      if(this.state.OpenStatistique==true) this.setState({Title: "Statistiques"})
+      else  this.setState({Title: "Véhicules"}) 
+      
     }
     async componentDidMount() 
     {
-       const queryParmater= new URLSearchParams(window.location.search);
+        const queryParmater= new URLSearchParams(window.location.search);
         const m=queryParmater.get('m');
         this.setState({Lot : m})
          const response = await fetch('http://localhost:9090/Usine/allvehiculesOfLot/'+m);
          const body = await response.json();
          this.setState({rows : body})
-       }
+         this.setState({all:body})
+         this.setState({steps:body[0].steps})
+         this.setState({l:body[0].lot})
+         this.setState({modele : body[0].modele.designation})
+         const response1 = await fetch('http://localhost:9090/Usine/allProblemesOfLot/'+m);
+         const body1 = await response1.json();
+         const queryParmater2= new URLSearchParams(window.location.search);
+         const mbr=queryParmater2.get('n');
+         const response2 = await fetch('http://localhost:9090/Usine/findUtilisateurbyid/'+mbr);
+         const body2 = await response2.json();
+         this.setState({theproblems:body1,utilisateur:body2,marque :  body[0].modele.marque.designation})
+
+    }
        async RechercheVehicule()
        {
          const trouve = [];
@@ -58,9 +82,17 @@ class SuiviProblemes extends React.Component {
         
          
        }
-       statistique()
+       async GetBloques()
+       { console.log(this.state.Lot)
+         
+         const response = await fetch('http://localhost:9090/Usine/allVehiculesbloquéOfLot/'+this.state.Lot);
+         const body = await response.json();
+         this.setState({rows:body})
+         
+       }
+       async Allvehicules()
        {
-          return (<CardStatistique theVehicules={this.state.rows} ></CardStatistique>)
+         this.setState({rows:this.state.all});
        }
     render() {
   return (
@@ -74,128 +106,94 @@ class SuiviProblemes extends React.Component {
   
   <div class="container-fluid">
   <div class="row">
-  <nav id="sidebarMenu" class="nav col-md-3 col-lg-2 d-md-block bg-light sidebar collapse navbar-fixed-top">
-      <div class="position-fixed pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <span data-feather="home" class="align-text-bottom"></span>
-              Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file" class="align-text-bottom"></span>
-              Orders
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="shopping-cart" class="align-text-bottom"></span>
-              Products
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users" class="align-text-bottom"></span>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers" class="align-text-bottom"></span>
-              Integrations
-            </a>
-          </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-          <span>Saved reports</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle" class="align-text-bottom"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text" class="align-text-bottom"></span>
-              Year-end sale
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <RoleNavbar roles={this.state.utilisateur.roles} id={this.state.utilisateur.id}
+  len={this.state.utilisateur.count}></RoleNavbar>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Suivi des Problémes de qualité</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-primary"
-            onClick={this.statistique}>Statistiques</button>
+           <MenuOption utilisateur= {this.state.utilisateur}></MenuOption>
           </div>
         </div>
       </div>
+      <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-sm btn-outline-primary"
+          onClick={this.OpenStatistique}>{this.state.Title}</button>
+          </div>
      <h2>Lot Num {this.state.Lot}: </h2>
-     <center>
-             <br></br><br></br>
-             
-             </center>
-             <div class= "SearchForm">
+     
+          
+       
+    <Collapse in={!this.state.OpenStatistique} timeout="auto" unmountOnExit> 
+            <ExportCSV  fileName={"numLot"+this.state.Lot}  customers={this.state.rows}></ExportCSV> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Dropdown className="d-inline mx-2" autoClose="inside" >
+              <Dropdown.Toggle variant="outline-primary" id="dropdown-basic" >
+                Filtrer
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={this.Allvehicules}>Tous</Dropdown.Item>
+                <Dropdown.Item onClick={this.GetBloques} >Bloqués</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span >
                 <TextField id="standard-basic" label="Num Chassis" variant="standard" 
                  onChange={(e)=>this.setState({Recherche:e.target.value})}
                 />
                       <button class="btnR" onClick={this.RechercheVehicule} >
                         <i class="bi bi-search"></i>
                       </button>
-             </div>
-            
-         
+            </span>
           
-            
- 
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table" className="table  table-bordered" >
-        <TableHead style={{ background: 'rgb(158 158 158)' }} >
-          <TableRow>
-            <TableCell />
-            <TableCell>Num</TableCell>
-            <TableCell>Num Chassis</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        {this.state.rows.map((row) => (
-         <OneVehPrb theVehicule={row}></OneVehPrb>
+            <MatableSuiPro rows={this.state.rows}></MatableSuiPro>        
+    </Collapse>
+    <Collapse in={this.state.OpenStatistique} timeout="auto" unmountOnExit>
+    <CardStatistique theVehicules={this.state.rows} theproblems={this.state.theproblems}></CardStatistique>
+    </Collapse>
+    <Collapse in={true} timeout="auto" unmountOnExit>
+   <table id="table_instance" hidden>
+     <thead>
+       <tr><td>Num lot </td> <td>{this.state.Lot}</td></tr>
+       <tr><td>connaissement </td> <td>{this.state.l.connaissement}</td></tr>
+       <tr><td>Num bach </td> <td>{this.state.l.num_bach}</td></tr>
+       <tr><td>Date d'entrée</td><td>{this.state.l.date_Entree}</td></tr>
+       <tr><td>Modèle</td><td>{this.state.modele}</td></tr>
+       <tr><td>Marque</td><td>{this.state.marque}</td></tr>
+     
+     <tr>
+       <td></td><td>chassis</td><td>Engine</td><td>Couleur</td>
+       {this.state.steps.map((step) => (
+         <td>{step.nomStep}</td>
          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    
-    <CardStatistique theVehicules={this.state.rows} ></CardStatistique>
-    
+         <td>Problémes</td>
+     </tr>
+     </thead>
+     <tbody>
+     {this.state.rows.map((row) => (
+         <tr><td>{row.ordre}</td><td>{row.num_Chassis}</td><td>{row.numengine}</td><td>{row.couleur}</td>
+         <Step steps={row.steps}></Step>
+         <Problemes problemes={row.problemes} ></Problemes>
+         </tr>
+     ))}
+     </tbody>
+   </table>
+ 
+   
+   </Collapse>
+   
     </main>
     </div>
     </div>
@@ -206,6 +204,65 @@ class SuiviProblemes extends React.Component {
 }
 }
 export default SuiviProblemes;
+const Problemes = ({problemes})=>
+{ 
+  let nom = "";
+  for(let i = 0; i<problemes.length;i++)
+  {
+    if(problemes[i].observation==="" || problemes[i].observation=== null)
+    {
+      nom = nom + "+" + problemes[i].nom +"\r";
+    }
+    else{nom = nom + "+" + problemes[i].nom +"("+ problemes[i].observation +") \r";}
+    
+  }
+    return (
+      <td>{nom}</td>
+    )
+}
+const Step = ({steps})=>
+{
+return(
+  <>
+   {steps.map((step) => (
+         <td>{step.datefin}{"\r"+step.etat}</td>
+     ))}
+  </>
+)
+}
+const ExportCSV = ({  fileName , customers }) => {
+  
+ 
+ 
+  
+  const exportToCSV = () => {
+ 
+    var table_elt = document.getElementById('table_instance');
+
+    // Extract Data (create a workbook object from the table)
+    var workbook = XLSX.utils.table_to_book(table_elt);
+    
+    // Process Data (add a new row)
+    var ws = workbook.Sheets["Sheet1"];
+    XLSX.utils.sheet_add_aoa(ws, [["Created "+new Date().toISOString()]], {origin:-1});
+    
+    // Package and Release Data (`writeFile` tries to write and save an XLSB file)
+    XLSX.writeFile(workbook, "Report.xls");
+
+  };
+
+  return (
+    <button
+      class="btn  btn-outline-primary" 
+      onClick={e => exportToCSV()}
+    ><i class="bi bi-folder-symlink-fill"></i>
+      Exporter
+    </button>
+  );
+};
+
+
+
 
 
 

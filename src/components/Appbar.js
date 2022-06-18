@@ -34,18 +34,13 @@ function Appbar() {
     <>
   <header class="navbar navbar-light  sticky-top  flex-md-nowrap p-0 shadow" style={{ background: 'rgb(158 158 158)' }} >
   <span >
-   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Logo_Auto_Hall.jpg" width="80" height="40" class="me-3" alt="Bootstrap"/>
+   <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Logo_Auto_Hall.jpg" width="80" height="55" class="me-3" alt="Bootstrap"/>
   <label style={{ color: '#ffff' , fontSize:"20px"}} > Usine Auto Hall </label>
   </span>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
  
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#"><MenuOption></MenuOption></a>
-    </div>
-  </div>
 </header>
 
    </>

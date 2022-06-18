@@ -84,6 +84,7 @@ export default class ExcelToJson extends React.Component {
           }
           else
           {
+              console.log(vehicules)
               const res = await fetch("http://localhost:9090/Usine/addlot",{
               method:"POST",
               headers:{"Content-Type":"application/json"},

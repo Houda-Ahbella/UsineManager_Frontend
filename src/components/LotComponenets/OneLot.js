@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react';
 import { Modal, Button ,Card} from 'react-bootstrap';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import EditLot from './EdiLot'
-const OneLot = ({theLot}) => {
+const OneLot = ({theLot,role,id}) => {
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
@@ -12,7 +12,6 @@ const OneLot = ({theLot}) => {
     const [showE,setshowE] = useState(false)
     const handleShowsupp = () => setShowsupp(true);
     const handleClosesupp = () => setShowsupp(false);
-    
     const SupprimerLot = () => {
         setShowsupp(false)
         setshowE(true)
@@ -26,10 +25,39 @@ const OneLot = ({theLot}) => {
             )
         
     } 
+    let Supp=false;
+    let Eta = false;
+    let Prob = false;
+    let Ordon = false;
+    let n = role.length;
+    
+    for(let i=0;i<n;i++)
+    {   
+
+        if(role[i].key.roleId==1)
+        {
+            Ordon=true;
+        }
+         else if(role[i].key.roleId==2)
+         {
+             Supp = true; Ordon=true;
+            
+         }
+         else if(role[i].key.roleId==3)
+         {
+             Eta = true;
+         }
+         else if(role[i].key.roleId==4)
+         {
+             Prob = true;
+         }
+    }
+    
 
    
-
+    
     return (
+        
         <>
   <Card style={{ borderRadius : 30 , borderWidth: 2, borderColor : "black" }}>
      
@@ -46,6 +74,7 @@ const OneLot = ({theLot}) => {
          CONNAISSEMENT :     {theLot.connaissement}   <br></br>
          Nombre de vehicule : {theLot.nombre_vehicules} <br></br>
          Date d'entrée:  {theLot.date_Entree}  <br></br><br></br>
+         {Ordon? ( <>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         
                 <Button onClick={handleShow} variant="outline-dark" data-toggle="modal">
                    <i class="bi bi-pen"></i> 
@@ -53,15 +82,31 @@ const OneLot = ({theLot}) => {
                                         
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <Button  variant="outline-dark"  onClick={()=> {
-                                navigate('/VehiculesofLot?lot='+theLot.num_lot)}} > 
+                                navigate('/VehiculesofLot?lot='+theLot.num_lot+'&m='+id)}} > 
                                 <span><i class="bi bi-truck"></i></span>
                     </Button>
-                                        
+            </> ) : (<></>
+                 )}
+                 
+                                   
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           
-                 <Button   variant="outline-danger" onClick={handleShowsupp} > 
+          {Supp? (<Button   variant="outline-danger" onClick={handleShowsupp} > 
                         <span><i class="bi bi-trash3-fill"></i></span>
-                 </Button>
+                 </Button>) : (<></>
+                 )}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+           {Eta? (<Button   variant="outline-dark" onClick={()=> {
+                     navigate('/EtapesOfvehicules?m='+theLot.num_lot+'&n='+id)}} > 
+                        <span><i class="bi bi-bar-chart-steps"></i></span>
+                 </Button>) : (<></>
+           )}
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           {Prob? (<Button   variant="outline-dark" onClick={()=> {
+                     navigate('/SuiviProblemes?m='+theLot.num_lot+'&n='+id)}} > 
+                        <span><i class="bi bi-wrench-adjustable"></i></span>
+                 </Button>) : (<></>
+           )}
+                 
                                         
       </Card.Text>
     </Card.Body>

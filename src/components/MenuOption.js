@@ -1,12 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import  {Button } from 'react-bootstrap';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar'
-import { green } from '@material-ui/core/colors';
+
 import './e.css'
 const StyledMenu = withStyles({
   
@@ -37,7 +35,7 @@ const StyledMenuItem = withStyles(theme => ({
   },
 }))(MenuItem);
 
-export default function MenuOption() {
+const  MenuOption = ({utilisateur})=> {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -54,19 +52,20 @@ export default function MenuOption() {
        onClick={handleClick}><i class="bi bi-person"></i>
       </button>
       <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-        <StyledMenuItem>
+      <StyledMenuItem>
+          <ListItemText primary={utilisateur.nom + " " + utilisateur.prenom} 
+          secondary={utilisateur.role} />
+        </StyledMenuItem>
+        <StyledMenuItem onClick={()=>{
+          window.location.assign("/Acceuil")
+        }}>
           <ListItemIcon>
           <i class="bi bi-toggle2-off"></i>
           </ListItemIcon>
           <ListItemText primary="Déconnecter" />
         </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-          <i class="bi bi-pencil-fill"></i>
-          </ListItemIcon>
-          <ListItemText primary="Modifier" secondary="profil" />
-        </StyledMenuItem>
       </StyledMenu>
     </div>
   );
 }
+export default MenuOption;

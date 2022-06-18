@@ -11,13 +11,17 @@ import ExcelToJson from './components/Excel'
 import EtapesforVehicule from './components/Etapes/EtapesOfVehicules';
 import Allprb from './components/QualiteProblemes/AllProblems';
 import SuiviProblemes from './components/QualiteProblemes/SuiviProblemes'
+import AcceuilPage from "./components/Acceuil/Acceuil"
+import AllUtilisateur from './components/Utilisateur/AllUtilisateur';
+
 
 function App() {
   return (
     <>   
-<Appbar></Appbar>     
+<Appbar></Appbar>    
  <Router>
    <Routes>
+    <Route exact path="/Acceuil"  element={<AcceuilPage/>} />
      <Route exact path="/allmarques"  element={<AllMarques/>} />
      <Route exact path="/marque"  element={<Marque/>} />
      <Route exact path="/etapes"  element={<Etapes/>} />
@@ -27,6 +31,7 @@ function App() {
      <Route exact path='/EtapesOfvehicules' element={<EtapesforVehicule></EtapesforVehicule>}></Route>
      <Route exact path='/Allproblemes' element={<Allprb></Allprb>}></Route>
      <Route exact path='/SuiviProblemes' element={<SuiviProblemes></SuiviProblemes>}></Route>
+     <Route exact path='/Allutilisateurs' element={<AllUtilisateur></AllUtilisateur>}></Route>
    </Routes>
  </Router>
  </>
