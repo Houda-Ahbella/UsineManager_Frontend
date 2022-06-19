@@ -6,7 +6,6 @@ const AjoutVehicule = ({theLot}) =>{
     const [numengine, setnum_Engine] = React.useState('')
     const [couleur, setcouleur] = React.useState('')
     const [ordre, setordre] = React.useState('')
-   
     
     const handlerClick=async(e)=>
     {

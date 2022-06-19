@@ -22,6 +22,8 @@ import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import OneU from "./OneUtilisateur"
 import {Button , Modal } from "react-bootstrap"
+import AjoutU from "./AjoutU";
+
 
 function TablePaginationActions(props) {
     const theme = useTheme();
@@ -176,15 +178,16 @@ class AllUtilisateur extends React.Component {
         all : []
        ,utilisateur : {}
        ,Ajout : false
+       ,NomRecherche : ""
       };
       this.showAjouter = this.showAjouter.bind(this);
+      this.Rechercher = this.Rechercher.bind(this);
     }
     async componentDidMount() {
 
         const queryParmater= new URLSearchParams(window.location.search);
          const response = await fetch('http://localhost:9090/Usine/Allutilisateur');
          const body = await response.json();
-         console.log(body);
          const mbr=queryParmater.get('m');
          const response2 = await fetch('http://localhost:9090/Usine/findUtilisateurbyid/'+mbr);
          const body2 = await response2.json();
@@ -192,6 +195,21 @@ class AllUtilisateur extends React.Component {
          
        }
        showAjouter(){ this.setState({Ajout : !this.state.Ajout})}
+       async Refrech()
+       {
+        const response = await fetch('http://localhost:9090/Usine/Allutilisateur');
+        const body = await response.json();
+        this.setState({all: body});
+
+       }
+       async Rechercher()
+       {
+           
+        const response2 = await fetch('http://localhost:9090/Usine/findUtilisateurbyNom/'+this.state.NomRecherche);
+        const body2 = await response2.json();
+        this.setState({all:body2});
+        console.log(this.state.all);
+       }
     render() {
     
  
@@ -229,40 +247,20 @@ class AllUtilisateur extends React.Component {
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <TextField id="standard-basic" label="Num Chassis" variant="standard" 
-                />
+                <TextField id="standard-basic" label="Nom" variant="standard" 
+                onChange={(e)=>this.setState({NomRecherche : e.target.value})}/>
                       <button class="btnR">
-                        <i class="bi bi-search"></i>
+                        <i class="bi bi-search" onClick={this.Rechercher}></i>
                       </button>
              </div>
+             <Button onClick={this.Refrech} >all</Button>
              <Matableutilisateur rows={this.state.all}></Matableutilisateur>
                 </main>
             </div>
             </div>
             <Modal show={this.state.Ajout} onHide={this.showAjouter}>
                 <Modal.Body >
-                <form action="">
-                <div class="form-group">
-                   Nom : <input  type="text" class="form-control"  placeholder="Nom" name="Nom"></input>
-                   Prenom : <input type="text" class="form-control" placeholder="Prenom" name="Prenom"></input>
-                   Email : <input type="text" class="form-control" placeholder="Email" name="Email"></input>
-                   Mot de passe  : <input type="text" class="form-control" placeholder="Mot de passe" name="Mot de passe"></input>
-                   <div class="form-group">
-                          <label>Roles</label>
-                          <select mulitiple class="form-control">
-                          <option>Ordonnanceur</option>  
-                          <option>Responsable d'ordonnancement</option> 
-                          <option>Responsable de suivi de production</option> 
-                          <option>Responsable de suivi de qualité</option>
-                          <option>Responsable d'usine</option>
-                          <option>Admin</option>
-                          </select>                                
-                   </div>
-                   Roles : <input type="text" class="form-control"></input>
-                   <br></br>
-                   <Button variant="primary" onClick={this.showAjouter}>    Ajouter   </Button>
-                   &nbsp;
-                   </div> </form>
+                    <AjoutU utlisateurId={this.state.utilisateur.id}></AjoutU>
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="secondary" onClick={this.showAjouter} >  Fermer  </Button>

@@ -45,6 +45,7 @@ class AcceuilPage extends React.Component {
         body:JSON.stringify(compte)
         });
     const u = await response.json();
+    console.log(u);
     if(u.id===-1)
     {
         alert(u.nom)
@@ -53,15 +54,17 @@ class AcceuilPage extends React.Component {
     {
       for(let i = 0; i<u.count ; i++)
       {
-        if(u.roles[i].key.roleId==1||u.roles[i].roleId==2||u.roles[i].roleId==3||u.roles[i].roleId==4)
+        let key = u.roles[i].key.roleId;
+        if(key==1||key==2||key==3||key==4)
         {
+          console.log("ok")
           window.location.assign("/AllLot?m="+u.id);
         }
-        else if(u.roles[i].key.roleId==5)
+        else if(key==5)
         {
           window.location.assign("/Allmarques?m="+u.id);
         }
-        else if(u.roles[i].key.roleId==6)
+        else if(key==6)
         {
           
         }
