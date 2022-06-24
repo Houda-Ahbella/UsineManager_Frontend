@@ -229,7 +229,7 @@ export function MatableSuiEtapes ({rows}) {
   </>
   );
 }
-export function MatableVehiculesOflot ({rows}) {
+export function MatableVehiculesOflot ({rows,aide,id}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -269,7 +269,7 @@ export function MatableVehiculesOflot ({rows}) {
             
                 
             
-            <OneVehicule theVehicule={row}></OneVehicule>             
+            <OneVehicule theVehicule={row} aide={aide} id={id}></OneVehicule>             
             
           ))}
 

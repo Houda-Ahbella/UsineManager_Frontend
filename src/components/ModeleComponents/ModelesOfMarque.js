@@ -63,7 +63,7 @@ class Marque extends React.Component {
   len={this.state.utilisateur.count}></RoleNavbar>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Gestion des Marques</h1>
+        <h1 class="h2">Gestion des Modèles</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">       
           <MenuOption utilisateur= {this.state.utilisateur}></MenuOption>
@@ -85,7 +85,7 @@ class Marque extends React.Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <AjoutModele theMarque={this.state.m}></AjoutModele>
+                  <AjoutModele theMarque={this.state.m} id ={this.state.utilisateur.id}></AjoutModele>
                 </Modal.Body>
                 <Modal.Footer>
                         <Button variant="secondary" onClick={this.MakeModalVisible}> fermer </Button>           
@@ -97,6 +97,7 @@ class Marque extends React.Component {
                <thead style={{ background: 'rgb(158 158 158)' }}>
                <tr>
                   <th>Designation</th>
+                  <th>Actions</th>
               </tr>
                </thead>
                <tbody>

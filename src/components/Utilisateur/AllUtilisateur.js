@@ -90,7 +90,7 @@ function TablePaginationActions(props) {
   
   
    
- function Matableutilisateur({rows}) {
+ function Matableutilisateur({rows,m}) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     // Avoid a layout jump when reaching the last page with empty rows.
@@ -125,7 +125,7 @@ function TablePaginationActions(props) {
             ).map((row) => (
               
                
-                 <OneU row={row}></OneU>
+                 <OneU row={row} m={m}></OneU>
                 
                         
               
@@ -182,6 +182,7 @@ class AllUtilisateur extends React.Component {
       };
       this.showAjouter = this.showAjouter.bind(this);
       this.Rechercher = this.Rechercher.bind(this);
+      this.Refrech = this.Refrech.bind(this);
     }
     async componentDidMount() {
 
@@ -204,11 +205,20 @@ class AllUtilisateur extends React.Component {
        }
        async Rechercher()
        {
-           
+        console.log(this.state.NomRecherche);
         const response2 = await fetch('http://localhost:9090/Usine/findUtilisateurbyNom/'+this.state.NomRecherche);
         const body2 = await response2.json();
-        this.setState({all:body2});
-        console.log(this.state.all);
+        if(body2[0].id==-1)
+        {
+            alert("utilisateur non trouvé");
+        }
+        else
+        {
+            this.setState({all:body2});
+            console.log(this.state.all);
+        }
+       
+        
        }
     render() {
     
@@ -252,9 +262,16 @@ class AllUtilisateur extends React.Component {
                       <button class="btnR">
                         <i class="bi bi-search" onClick={this.Rechercher}></i>
                       </button>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                      <Button onClick={this.Refrech} variant="outline-primary">Tous</Button>
              </div>
-             <Button onClick={this.Refrech} >all</Button>
-             <Matableutilisateur rows={this.state.all}></Matableutilisateur>
+             
+             <Matableutilisateur rows={this.state.all} m={this.state.utilisateur.id}></Matableutilisateur>
                 </main>
             </div>
             </div>

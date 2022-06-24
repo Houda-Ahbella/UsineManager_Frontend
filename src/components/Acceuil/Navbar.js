@@ -52,18 +52,18 @@ import '../e.css'
            )}
            {Usine? (
                <>
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                <span><i class="bi bi-list-check"></i> &nbsp;
-                  Gestion d'usine</span>
-             </h6>
+             <span class="nav-link">
+              <span data-feather="file" class="align-text-bottom"></span>
+              <i class="bi bi-list-check"></i> &nbsp;Gestion d'usine
+            </span>
           <li class="nav-item">
-            <a class="nav-link" href={"/Allmarques?m="+id}>
-              <span data-feather="file" class="align-text-bottom"></span>
-              Marque/Modèle/Etape
+            <a class="nav-link" href={"/Allmarques?m="+id} style={{ color: 'rgb(158 158 158)' }}>
+              
+            <i class="bi bi-arrow-right"></i>&nbsp;Marque/Modèle/Etape
             </a>
-            <a class="nav-link" href={"/Allproblemes?m="+id}>
+            <a class="nav-link" href={"/Allproblemes?m="+id} style={{ color: 'rgb(158 158 158)' }}>
               <span data-feather="file" class="align-text-bottom"></span>
-              Problèmes de qualié
+              <i class="bi bi-arrow-right"></i>&nbsp;Problèmes de qualié
             </a>
           </li>
           </>) : (<></>
@@ -71,7 +71,7 @@ import '../e.css'
            {Admin? (
                <>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href={"/Allutilisateurs?m="+id}>
               <span data-feather="file" class="align-text-bottom"></span>
               <i class="bi bi-person-lines-fill"></i>&nbsp; Gestion des utilisateurs
             </a>

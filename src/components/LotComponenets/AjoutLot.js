@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from 'react-bootstrap';
 import ExcelToJson from '../Excel'
 
-export default function AjoutLot() {
+export default function AjoutLot({id}) {
     
     const [chemin,setChemin]=React.useState('')
     const[extension,setextension]=React.useState('')
@@ -28,7 +28,7 @@ export default function AjoutLot() {
     
 <div class="container">
   <form onSubmit={handleSubmit}>
-                    <ExcelToJson></ExcelToJson>
+                    <ExcelToJson id={id} ></ExcelToJson>
                     
     </form>
 </div>

@@ -34,6 +34,7 @@ class AllLot extends React.Component {
      ,aide : false
     };
     this.OpenStatistique= this.OpenStatistique.bind(this);
+    this.Tous = this.Tous.bind(this);
   }
   OpenStatistique()
     {
@@ -47,29 +48,28 @@ class AllLot extends React.Component {
   {
      if(this.state.Recherche!="")
      {
-      const trouve = [];
-      for(let i = 0 ; i<this.state.lots.length; i++)
-      {
       
-        if(this.state.Recherche==this.state.lots[i].num_lot)
-        {
-          
-          trouve.push(this.state.lots[i])
-        }
-        else { console.log(this.state.lots[i].num_lot) }
-      }
-      if(trouve.length===0)
-      {
-        alert("Lot  n'existe pas !!")
-      }
-      else
-      {
-        this.setState({lots : trouve}) 
-      }
+      const l = await fetch("http://localhost:9090/Usine/findlot/"+this.state.Recherche,{
+        method:"GET",
+        headers:{"Content-Type":"application/json"}
+        })
+        const lot = await l.json(); 
 
+        if(lot.num_lot===-1)
+        {
+          alert("le lot num : "+this.state.Recherche+" n'existe pas");
+        }
+        else
+        {
+          let a = []
+          a.push(lot);
+          this.setState({lots:a})
+        }
+        }
+        
      }
        
-  }
+  
   MakeEditModalVisible()
   {
    
@@ -87,7 +87,12 @@ class AllLot extends React.Component {
     
   }
  
-  
+  async Tous()
+  {
+    const response = await fetch('http://localhost:9090/Usine/allLot');
+    const body = await response.json();
+    this.setState({lots: body});
+  }
   async componentDidMount() {
     const response = await fetch('http://localhost:9090/Usine/allLot');
     const body = await response.json();
@@ -146,13 +151,12 @@ class AllLot extends React.Component {
         
       </div>
       
-      {ordon? (<div class="col-md-12 text-right">
+    <div class="col-md-12 text-right">
         <button onClick={this.OpenStatistique} class="btn btn-sm btn-outline-primary" 
                 data-toggle="modal">
                 <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;{this.state.Title}&nbsp;
         </button>
-      </div>) : (<></>
-           )}
+      </div>
              
       
       <Collapse in={!this.state.OpenStatistique} timeout="auto" unmountOnExit>
@@ -182,7 +186,7 @@ class AllLot extends React.Component {
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-           
+               <Button onClick={this.Tous} variant="outline-primary">Tous</Button>
           
            </div>
              <br></br><br></br>
@@ -211,7 +215,7 @@ class AllLot extends React.Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <AjoutLot></AjoutLot>
+                  <AjoutLot id={this.state.utilisateur.id}></AjoutLot>
                 </Modal.Body>
                 <Modal.Footer>              
                         <Button variant="secondary" onClick={this.MakeModalVisible}> fermer </Button>           

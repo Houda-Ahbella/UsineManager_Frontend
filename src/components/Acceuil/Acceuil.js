@@ -66,7 +66,7 @@ class AcceuilPage extends React.Component {
         }
         else if(key==6)
         {
-          
+          window.location.assign("/Allutilisateurs?m="+u.id);
         }
         else
         {

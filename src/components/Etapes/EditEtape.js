@@ -2,7 +2,7 @@ import {  Button } from "react-bootstrap"
 import { useState} from 'react';
 
 
-const EditEtape = ({etape}) =>{
+const EditEtape = ({etape,id}) =>{
     const [ordre,setordre]=useState(etape.ordre)
     const [des,setdes]=useState(etape.step.des)
     const ModifieEtape=async()=>
@@ -30,7 +30,7 @@ const EditEtape = ({etape}) =>{
             
             else
             {
-              window.location.assign('/etapes?n='+etape.marque.num_marque+'&m='+etape.marque.designation)
+              window.location.assign('/etapes?n='+etape.marque.num_marque+'&m='+etape.marque.designation+'&id='+id)
             }
       
       

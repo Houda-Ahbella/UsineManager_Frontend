@@ -20,7 +20,7 @@ const OneLot = ({theLot,role,id}) => {
             headers:{"Content-Type":"application/json"}
             }).then(()=>{
                 console.log(" vehicule deleted")
-                window.location.assign('http://localhost:3000/AllLot');
+                window.location.assign('http://localhost:3000/AllLot?m='+id);
             }
             )
         
@@ -120,7 +120,7 @@ const OneLot = ({theLot,role,id}) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <EditLot theLot={theLot}></EditLot>                    
+                    <EditLot theLot={theLot} id={id}></EditLot>                    
                 </Modal.Body>
                 <Modal.Footer >
                         <Button variant="secondary" onClick={handleClose}>

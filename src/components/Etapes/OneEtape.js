@@ -1,7 +1,7 @@
 import {Button , Modal} from "react-bootstrap"
 import { useState } from 'react';
 import EditEtape from "./EditEtape";
-const OneModele = ({etape}) => {
+const OneModele = ({etape,id}) => {
     const [Effaceshow, setEffaceshow] = useState(false);
     const [Modifiershow, setModifiershow] = useState(false);
     const Effacer=()=>
@@ -20,7 +20,7 @@ const OneModele = ({etape}) => {
             headers:{"Content-Type":"application/json"}
             }).then(()=>{
                 console.log(" Etape deleted")
-                window.location.assign('/etapes?n='+etape.marque.num_marque+'&m='+etape.marque.designation)
+                window.location.assign('/etapes?n='+etape.marque.num_marque+'&m='+etape.marque.designation+'&id='+id)
             }
             )
        
@@ -64,7 +64,7 @@ const OneModele = ({etape}) => {
                     </Modal.Title>
                </Modal.Header>
                 <Modal.Body>
-                    <EditEtape etape={etape}></EditEtape>
+                    <EditEtape etape={etape} id={id}></EditEtape>
                 </Modal.Body>
                 <Modal.Footer>
                         <Button variant="secondary" onClick={Modifier}>

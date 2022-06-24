@@ -1,7 +1,7 @@
 import {  Button ,Modal} from "react-bootstrap"
 import React from "react"
 
-const AjoutVehicule = ({theLot}) =>{
+const AjoutVehicule = ({theLot,id}) =>{
     const [num_Chassis,setnum_Chassis]=React.useState('')
     const [numengine, setnum_Engine] = React.useState('')
     const [couleur, setcouleur] = React.useState('')
@@ -13,8 +13,7 @@ const AjoutVehicule = ({theLot}) =>{
         
         e.preventDefault()
         const response = await fetch('http://localhost:9090/Usine/findlot/'+theLot);
-        const l = await response.json();
-        const lot = l[0];
+        const lot = await response.json();
         const modele = lot.modeleLot;
      if(num_Chassis===''||numengine===''||ordre==='')
       {
@@ -47,7 +46,7 @@ const AjoutVehicule = ({theLot}) =>{
              }
              else
              {
-               window.location.assign("/VehiculesofLot?lot="+theLot)
+               window.location.assign("/VehiculesofLot?lot="+theLot+"&m="+id)
              }
     
             

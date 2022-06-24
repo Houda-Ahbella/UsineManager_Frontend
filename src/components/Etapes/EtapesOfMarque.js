@@ -63,7 +63,7 @@ class Etapes extends React.Component {
   len={this.state.utilisateur.count}></RoleNavbar>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Gestion des Marques</h1>
+        <h1 class="h2">Gestion des étapes</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">       
             <MenuOption utilisateur= {this.state.utilisateur}></MenuOption>
@@ -75,17 +75,18 @@ class Etapes extends React.Component {
                       <i class="bi bi-plus-circle"></i>&nbsp; Ajouter
            </button> 
       </div>    
-             <h2>Les étapes de production du marque {this.state.marquename} :</h2>
+             <h2>Les étapes de montage du marque {this.state.marquename} :</h2>
              
              
               <Modal show={this.state.visible} onHide={this.MakeModalVisible}>
                 <Modal.Header style={{ background: 'rgb(224 224 224 / 57%)' }}>
                     <Modal.Title>
-                        Ajout d'un nouveau modele
+                        Ajout d'un nouvelle étape
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                 <AjoutEtape themarque={this.state.marquename} theNumber={this.state.marque} ></AjoutEtape>
+                 <AjoutEtape themarque={this.state.marquename} theNumber={this.state.marque} 
+                 id={this.state.utilisateur.id}></AjoutEtape>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={this.MakeModalVisible}> fermer </Button>           
@@ -104,7 +105,7 @@ class Etapes extends React.Component {
                <tbody>
                      {this.state.etapes.map(etape =>
                        <tr>
-                         <OneEtape etape={etape} ></OneEtape>
+                         <OneEtape etape={etape} id={this.state.utilisateur.id}></OneEtape>
                        </tr>
 
                )}

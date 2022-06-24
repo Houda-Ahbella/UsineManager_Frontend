@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useState} from 'react';
-export default function AjoutEtape({themarque,theNumber}) {
+export default function AjoutEtape({themarque,theNumber,id}) {
 
    const[etapes,setetapes]=React.useState([]);
    const [ordre,setordre]=React.useState(0);
@@ -38,7 +38,7 @@ export default function AjoutEtape({themarque,theNumber}) {
         }
         else
         {
-          window.location.assign('/etapes?n='+theNumber+'&m='+themarque)
+          window.location.assign('/etapes?n='+theNumber+'&m='+themarque+'&id='+id);
         }
 
         

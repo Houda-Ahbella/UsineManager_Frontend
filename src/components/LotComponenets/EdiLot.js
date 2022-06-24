@@ -2,7 +2,7 @@ import {  Button  } from "react-bootstrap"
 import { useState} from 'react';
 
 
-const EditLot = ({theLot}) =>{
+const EditLot = ({theLot,id}) =>{
     const [num_bach, setnum_bach] = useState(theLot.num_bach);
     const [connaissement, setconnaissement] = useState(theLot.connaissement);
     const [date_Entree, setdate_Entree] = useState(theLot.date_Entree);
@@ -19,7 +19,7 @@ const EditLot = ({theLot}) =>{
         body:JSON.stringify(theLot)
         }).then(()=>{
             console.log(" lot updated")
-            window.location.assign('http://localhost:3000/AllLot');
+            window.location.assign('http://localhost:3000/AllLot?m='+id);
         }
         )
         

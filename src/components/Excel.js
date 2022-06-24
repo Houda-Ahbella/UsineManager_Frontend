@@ -104,7 +104,7 @@ export default class ExcelToJson extends React.Component {
                   body:JSON.stringify(vehicules)
                   })
                     if(test===0) alert("certain ligne sont vide ou mal écrit \n ils sont pas enregistrée !")
-                    window.location.assign("/AllLot")
+                    window.location.assign("/AllLot?m="+this.props.id)
                   
               }
              }
@@ -116,7 +116,7 @@ export default class ExcelToJson extends React.Component {
              else
              {
                if(test===0) alert("certain ligne sont vide ou mal écrit \n ils sont pas enregistrée !")
-               window.location.assign("/AllLot");
+               window.location.assign("/AllLot?m="+this.props.id);
              }
           }
 

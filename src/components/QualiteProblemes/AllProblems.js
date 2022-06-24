@@ -60,7 +60,7 @@ class Allprb extends React.Component {
    len={this.state.utilisateur.count}></RoleNavbar>
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Suivi des Problémes de qualité</h1>
+        <h1 class="h2">gestion des problémes de qualité</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
           <MenuOption utilisateur= {this.state.utilisateur}></MenuOption>

@@ -2,7 +2,7 @@ import { Button ,Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import EditVehicule from "./EditVehicule"
 import { TableCell ,TableRow } from '@material-ui/core';
-const OneVehicule = ({theVehicule}) => {
+const OneVehicule = ({theVehicule,aide,id}) => {
 
 
     const [show, setShow] = useState(false);
@@ -28,7 +28,7 @@ const OneVehicule = ({theVehicule}) => {
                     headers:{"Content-Type":"application/json"}
                     }).then(()=>{
                         console.log(" vehicule deleted")
-                        window.location.assign('/AllLot');
+                        window.location.assign('/AllLot?m='+id);
                     })
             }
         }
@@ -38,7 +38,7 @@ const OneVehicule = ({theVehicule}) => {
                 headers:{"Content-Type":"application/json"}
                 }).then(()=>{
                     console.log(" vehicule deleted")
-                    window.location.assign('http://localhost:3000/VehiculesofLot?lot='+theVehicule.lot.num_lot);
+                    window.location.assign('http://localhost:3000/VehiculesofLot?lot='+theVehicule.lot.num_lot+'&m='+id);
                 })
         
         }
@@ -63,10 +63,11 @@ const OneVehicule = ({theVehicule}) => {
                    <Button variant="outline-primary"  data-toggle="modal"onClick={handleShow}>
                        <i class="bi bi-pen"></i>
                     </Button>&nbsp;
-                  
-                    <Button  variant="outline-danger" data-toggle="modal" onClick={handleShow2}>
+        {aide ? (<Button  variant="outline-danger" data-toggle="modal" onClick={handleShow2}>
                         <i class="bi bi-trash3-fill"></i>
-                    </Button>
+                    </Button>)
+                    :(<></>)}
+                    
                  
         </div>
        

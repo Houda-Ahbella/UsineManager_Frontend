@@ -40,6 +40,10 @@ const OnePrb = ({thePrb}) => {
                    <Button variant="outline-primary"  data-toggle="modal"onClick={handleShow}>
                        <i class="bi bi-pen"></i>
                     </Button>
+                    &nbsp;
+                    <Button  variant="outline-danger" data-toggle="modal">
+                                    <i class="bi bi-trash3-fill"></i>
+                    </Button>
                  
         </div>
          </td>

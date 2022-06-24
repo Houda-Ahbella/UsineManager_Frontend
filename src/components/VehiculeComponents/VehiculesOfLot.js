@@ -20,12 +20,15 @@ class VLot extends React.Component {
        , visible : false
        , Recherche : false
        ,utilisateur : {}
+       ,aide : false
       };
 
       this.RechercheVehicule = this.RechercheVehicule.bind(this);
       this.MakeModalVisible = this.MakeModalVisible.bind(this);
+      this.Tous = this.Tous.bind(this);
      
     }
+   
 
     MakeModalVisible()
     { 
@@ -54,6 +57,13 @@ class VLot extends React.Component {
         }
       
     }
+    async Tous()
+    {
+      const response = await fetch('http://localhost:9090/Usine/allvehiculesOfLot/'+this.state.lot);
+     const body = await response.json();
+     this.setState({vehicules: body});
+
+    }
    async componentDidMount() {
 
     const queryParmater= new URLSearchParams(window.location.search);
@@ -68,6 +78,17 @@ class VLot extends React.Component {
      const response2 = await fetch('http://localhost:9090/Usine/findUtilisateurbyid/'+mbr);
      const body2 = await response2.json();
      this.setState({vehicules: body,lot:lo,utilisateur:body2});
+     let  role= this.state.utilisateur.roles;
+     let n = this.state.utilisateur.count;
+     for(let i=0;i<n;i++)
+    {   
+         if(role[i].key.roleId==2)
+         {
+             this.setState({aide:true})
+             break;
+            
+         }
+    }
      
    }
  
@@ -117,6 +138,13 @@ class VLot extends React.Component {
                       <button onClick={this.RechercheVehicule} class="btnR">
                         <i class="bi bi-search"></i>
                       </button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <Button onClick={this.Tous} >Tous</Button>
              </div>
             <Modal show={this.state.visible} onHide={this.MakeModalVisible}>
                 <Modal.Header closeButton>
@@ -125,7 +153,7 @@ class VLot extends React.Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                     <AjoutVehicule theLot={this.state.lot}></AjoutVehicule>    
+                     <AjoutVehicule theLot={this.state.lot} id={this.state.utilisateur.id}></AjoutVehicule>    
                 </Modal.Body>
                 <Modal.Footer>
                         <Button variant="secondary" onClick={this.MakeModalVisible}> fermer </Button>           
@@ -133,7 +161,7 @@ class VLot extends React.Component {
             </Modal>
           
              <br></br>
-             <MatableVehiculesOflot rows={this.state.vehicules}></MatableVehiculesOflot>
+             <MatableVehiculesOflot rows={this.state.vehicules} aide={this.state.aide} id={this.state.utilisateur.id}></MatableVehiculesOflot>
            
             </main>
       </div>

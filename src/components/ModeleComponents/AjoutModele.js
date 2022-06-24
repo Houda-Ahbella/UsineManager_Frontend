@@ -1,7 +1,7 @@
 import {  Button , Modal} from "react-bootstrap"
 import React from "react"
 
-const AjoutModele = ({theMarque}) =>{
+const AjoutModele = ({theMarque,id}) =>{
     const [designation,setDesignation]=React.useState('')
     const [existe,setexiste] = React.useState(false)
     const [require,setrequire] = React.useState(false)
@@ -35,7 +35,7 @@ const AjoutModele = ({theMarque}) =>{
         }
         else
         {
-          window.location.assign('/marque?m='+theMarque+'&des='+marque.designation);
+          window.location.assign('/marque?m='+theMarque+'&des='+marque.designation+'&n='+id);
         }
       }
 
