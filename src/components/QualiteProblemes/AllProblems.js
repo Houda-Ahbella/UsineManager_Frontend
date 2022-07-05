@@ -88,7 +88,7 @@ class Allprb extends React.Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                   <AjoutPrb></AjoutPrb>
+                   <AjoutPrb di={this.state.utilisateur.id}></AjoutPrb>
                </Modal.Body>
                 <Modal.Footer>
                         <Button variant="secondary" onClick={this.MakeModalVisible}> fermer </Button>           

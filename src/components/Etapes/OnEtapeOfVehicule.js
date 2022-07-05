@@ -41,7 +41,7 @@ class OneEtape extends React.Component  {
     {
         let i = this.state.stepat.length; 
         const confirmBox = window.confirm(
-            "l'étape suivante est " + this.props.all[i].nomStep + " vous voulez l'ajouter ?"
+            "l'étape suivante est " + this.props.all[i].nomStep + ", voulez-vous l'ajouter?"
           )
         if(confirmBox===true)
         {   

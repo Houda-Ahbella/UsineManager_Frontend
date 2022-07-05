@@ -72,7 +72,7 @@ const OneLot = ({theLot,role,id}) => {
           
          N0 Bach : {theLot.num_bach} <br></br>
          CONNAISSEMENT :     {theLot.connaissement}   <br></br>
-         Nombre de vehicule : {theLot.nombre_vehicules} <br></br>
+         Nombre de vehicule : {theLot.nombre_vehicules+1} <br></br>
          Date d'entrée:  {theLot.date_Entree}  <br></br><br></br>
          {Ordon? ( <>
          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         

@@ -230,7 +230,7 @@ class AllLot extends React.Component {
             </Modal>
       </Collapse>  
       <Collapse in={this.state.OpenStatistique} timeout="auto" unmountOnExit>
-      <h2>Statistiques quotidienne :</h2>
+      <h2>Statistiques quotidiennes :</h2>
         <DiagrammesLot></DiagrammesLot>
       </Collapse> 
       </main>

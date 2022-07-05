@@ -75,13 +75,13 @@ class Etapes extends React.Component {
                       <i class="bi bi-plus-circle"></i>&nbsp; Ajouter
            </button> 
       </div>    
-             <h2>Les étapes de montage du marque {this.state.marquename} :</h2>
+             <h2>Les étapes d'assemnlage de la marque {this.state.marquename} :</h2>
              
              
               <Modal show={this.state.visible} onHide={this.MakeModalVisible}>
                 <Modal.Header style={{ background: 'rgb(224 224 224 / 57%)' }}>
                     <Modal.Title>
-                        Ajout d'un nouvelle étape
+                        Ajouter une étape
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

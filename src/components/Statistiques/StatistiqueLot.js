@@ -34,11 +34,11 @@ export default function CardStatistique({theVehicules,theproblems}) {
    
   let theVehiculesdata = []
 
-   let name = 'Livrée'
+   let name = 'Livrés'
   let value = livree
   theVehiculesdata.push({name,value})
    name = 'Bloqués'
-   value = bloque
+   value = bloque 
    theVehiculesdata.push({name,value})
    name = 'Encous'
    value = encours

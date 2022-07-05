@@ -94,7 +94,7 @@ let Vehicules = [];
     return (
       <div className="app">
         <div className="side-text">
-          <h6>Production d'aujourdui {new Date().toLocaleDateString()}</h6>
+          <h6>Production quotidienne {new Date().toLocaleDateString()}</h6>
         </div>
         <div className="main">
           <BarChart
@@ -121,7 +121,7 @@ let Vehicules = [];
         </div>
         <Statistiqueparmpois></Statistiqueparmpois>
         <PieRechartComponent></PieRechartComponent>
-        
+        <br></br><br></br><br></br><br></br>
       </div>
     );
   }
@@ -258,7 +258,7 @@ let Vehicules = [];
   function Statistiqueparmpois() {
     return (
       <div>
-        <h6>Developpement de production pour cette année ({new Date().getFullYear()})</h6>
+        <h6>Développement de production pour cette année ({new Date().getFullYear()})</h6>
         <LineChart
           width={1000}
           height={400}

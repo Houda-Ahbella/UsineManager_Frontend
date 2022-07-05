@@ -1,6 +1,6 @@
 import { Button ,Modal } from 'react-bootstrap';
 import { useState } from 'react';
-const AjoutPrb = () => {
+const AjoutPrb = ({di}) => {
     
     const [designation, setdesignation] = useState('');
    const Modifier=async()=>
@@ -28,7 +28,7 @@ const AjoutPrb = () => {
      else
      {
         
-        window.location.assign("/Allproblemes");
+        window.location.assign("/Allproblemes?m="+di);
      }
     }   
     

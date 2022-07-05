@@ -111,11 +111,6 @@ class AcceuilPage extends React.Component {
                     <input type="password" id="form2Example2" class="form-control"
                     onChange={(e)=>this.setState({password : e.target.value})} />
                     </div>
-                    <div class="row mb-4">
-                    <div class="col">
-                        <a href="#!">Mot de passe oublié?</a>
-                    </div>
-                    </div>
                     <button type="button" class="btn btn-primary btn-block mb-4"
                     onClick={this.Ajouter}>Connecter</button>
                 </form>

@@ -104,7 +104,7 @@ export default function AjoutEtape({themarque,theNumber,id}) {
   <Modal show={show} onHide={handleClose}>
                 <Modal.Header style={{ background: 'rgb(224 224 224 / 57%)' }}>
                     <Modal.Title>
-                        Creer Nouvelle Etape {theNumber} {themarque}
+                        Créer Nouvelle Etape {theNumber} {themarque}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>  

@@ -75,7 +75,7 @@ class Marque extends React.Component {
                           <i class="bi bi-plus-circle"></i>&nbsp; Ajouter
               </button>
        </div>            
-             <h2>Les modéles de marque {this.state.marque} :</h2>
+             <h2>Les modéles de la marque {this.state.marque} :</h2>
             
                 
             <Modal show={this.state.visible} onHide={this.MakeModalVisible}>

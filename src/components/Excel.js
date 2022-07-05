@@ -94,7 +94,7 @@ export default class ExcelToJson extends React.Component {
              if(meorga.num_lot===-1)
              {
               const confirmBox = window.confirm(
-                "le lot "+num_lot+" est déjà existe \n vous voulez ajouter ces nouveau informations à ce lot"
+                "le lot "+num_lot+" est déjà existe \n voulez-vous ajouter ces nouveau informations à ce lot"
               )
               if (confirmBox === true) 
               {
